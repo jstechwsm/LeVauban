@@ -813,16 +813,37 @@ var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false
 
 <script src="./index_files/dialog.min.js.descarga"></script><script src="./index_files/share-link.min.js.descarga"></script><link rel="stylesheet" href="./index_files/lightbox.min.css"><svg style="display: none;" class="e-font-icon-svg-symbols"></svg>
 <script>
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const href = this.getAttribute('href');
-    const targetId = href.startsWith('#') ? href : href.split('#')[1];
-    const target = document.getElementById(targetId);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+window.addEventListener("load", () => {
+  
+  document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+    anchor.addEventListener("click", e => {
+      const href = anchor.getAttribute("href");
+      if (!href.includes("#")) return;
+      const id = href.split("#")[1];
+      const target = document.getElementById(id);
+      if (target) {
+        e.preventDefault();
+        history.pushState(null, "", "#" + id);
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.scrollY - 50,
+          behavior: "smooth"
+        });
+      }
+    });
   });
+
+  if (window.location.hash) {
+    const id = window.location.hash.replace("#", "");
+    const target = document.getElementById(id);
+    if (target) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.scrollY - 50,
+          behavior: "smooth"
+        });
+      }, 500);
+    }
+  }
 });
 </script>
 </body></html>
