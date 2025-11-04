@@ -386,8 +386,8 @@ margin: 0 auto;
 				<nav id="site-navigation" class="main-navigation" style="top: auto;">
 					<div class="menu-enlaces-rapidos-container"><ul id="primary-menu" class="menu"><li id="menu-item-410" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-410"><a href="https://javisch27.github.io/LeVauban/#accueil" aria-current="page">Accueil</a></li>
 <li id="menu-item-372" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-372"><a href="https://javisch27.github.io/LeVauban/#localisation" aria-current="page">Localisation</a></li>
-<li id="menu-item-500" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-500"><a href="https://javisch27.github.io/LeVauban/#photos">Photos</a></li>
 <li id="menu-item-501" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-501"><a href="https://javisch27.github.io/LeVauban/#horaires">Horaires</a></li>
+<li id="menu-item-500" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-500"><a href="https://javisch27.github.io/LeVauban/#photos">Photos</a></li>
 <li id="menu-item-278" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-278"><a href="https://javisch27.github.io/LeVauban/#avis">Avis</a></li>
 <li id="menu-item-370" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-370"><a href="https://javisch27.github.io/LeVauban/#contacto" aria-current="page">Contact</a></li>
 </ul></div>				</nav><!-- #site-navigation -->
@@ -813,16 +813,37 @@ var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false
 
 <script src="./index_files/dialog.min.js.descarga"></script><script src="./index_files/share-link.min.js.descarga"></script><link rel="stylesheet" href="./index_files/lightbox.min.css"><svg style="display: none;" class="e-font-icon-svg-symbols"></svg>
 <script>
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const href = this.getAttribute('href');
-    const targetId = href.startsWith('#') ? href : href.split('#')[1];
-    const target = document.getElementById(targetId);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+window.addEventListener("load", () => {
+  
+  document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+    anchor.addEventListener("click", e => {
+      const href = anchor.getAttribute("href");
+      if (!href.includes("#")) return;
+      const id = href.split("#")[1];
+      const target = document.getElementById(id);
+      if (target) {
+        e.preventDefault();
+        history.pushState(null, "", "#" + id);
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.scrollY - 50,
+          behavior: "smooth"
+        });
+      }
+    });
   });
+
+  if (window.location.hash) {
+    const id = window.location.hash.replace("#", "");
+    const target = document.getElementById(id);
+    if (target) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.scrollY - 50,
+          behavior: "smooth"
+        });
+      }, 500);
+    }
+  }
 });
 </script>
 </body></html>
