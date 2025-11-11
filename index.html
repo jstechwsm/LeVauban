@@ -402,6 +402,7 @@ margin: 0 auto;
 			<div class="d-flex justify-content-end col-md-8">
 				<nav id="site-navigation" class="main-navigation" style="top: auto;">
 					<div class="menu-enlaces-rapidos-container"><ul id="primary-menu" class="menu"><li id="menu-item-410" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-410"><a href="https://jstechwsm.github.io/LeVauban/#accueil" aria-current="page">Accueil</a></li>
+<li id="menu-item-502" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-501"><a href="https://maps.app.goo.gl/KgQbPh9rRBgQmvvy7" target="_blank">Menu</a></li>
 <li id="menu-item-372" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-372"><a href="https://jstechwsm.github.io/LeVauban/#localisation" aria-current="page">Localisation</a></li>
 <li id="menu-item-501" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-501"><a href="https://jstechwsm.github.io/LeVauban/#horaires">Horaires</a></li>
 <li id="menu-item-500" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-500"><a href="https://jstechwsm.github.io/LeVauban/#photos">Photos</a></li>
@@ -447,6 +448,17 @@ margin: 0 auto;
 					<a class="elementor-button elementor-button-link elementor-size-sm" href="https://jstechwsm.github.io/LeVauban/#contacto">
 						<span class="elementor-button-content-wrapper">
 									<span class="elementor-button-text">contacter</span>
+					</span>
+					</a>
+				</div>
+								</div>
+				</div>
+				<div class="elementor-element elementor-element-be5e841 elementor-align-center elementor-widget elementor-widget-button" data-id="be5e841" data-element_type="widget" data-settings="{&quot;_animation&quot;:&quot;none&quot;}" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+									<div class="elementor-button-wrapper">
+					<a class="elementor-button elementor-button-link elementor-size-sm menu-link" href="https://maps.app.goo.gl/KgQbPh9rRBgQmvvy7" target="_blank">
+						<span class="elementor-button-content-wrapper">
+									<span class="elementor-button-text">menu</span>
 					</span>
 					</a>
 				</div>
@@ -693,9 +705,9 @@ je recommande</div>
 				<div class="elementor-widget-container">
 							<div class="elementor-shortcode"><center>
 <p style="color: white; font-size: 25px;">Téléphone : 02 33 50 12 94</p>
-<p style="color: white; font-size: 25px;">
+<p class="email-block" style="color: white; font-size: 25px;">
   Email : 
-  <a href="mailto:levauban50400@gmail.com" 
+  <a class="email-link" href="mailto:levauban50400@gmail.com" 
      style="color: white; font-size: 25px;" 
      onmouseover="this.style.color='blue'" 
      onmouseout="this.style.color='white'">
@@ -724,11 +736,6 @@ je recommande</div>
 
 
 	</div><!-- #content -->
-
-	
-	
-	
-	
 	
 	<footer id="colophon" class="site-footer" style="padding: 10px 0;">
 		<div class="container-fluid d-flex justify-content-between align-items-center flex-wrap">		
@@ -738,9 +745,9 @@ je recommande</div>
 			</h2>
 			<div>
 				<p style="color:black; font-size:17px; margin:0; text-transform:none; line-height:1.2;">Téléphone : 02 33 50 12 94</p>
-				<p style="color:black; font-size:17px; margin:0; text-transform:none; line-height:1.2;">
+				<p class="email-block" style="color:black; font-size:17px; margin:0; text-transform:none; line-height:1.2;">
 				Email :
-				<a href="mailto:levauban50400@gmail.com"
+				<a class="email-link" href="mailto:levauban50400@gmail.com"
 					style="color:black; font-size:17px; text-transform:none;"
 					onmouseover="this.style.color='blue'"
 					onmouseout="this.style.color='black'">
@@ -869,6 +876,38 @@ window.addEventListener("load", () => {
       }, 500);
     }
   }
+});
+</script>
+<script>
+const emails = document.querySelectorAll("#email-link, .email-link");
+emails.forEach(link => {
+  if (link.textContent.trim() === "email_address") {
+    const block = link.closest("p");
+    if (block) block.remove();
+  }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".menu-link").forEach(link => {
+    const href = link.getAttribute("href")?.trim();
+    if (!href || href === "menu_link" || !href.startsWith("http")) {
+      // sube hasta el contenedor del botón y lo elimina
+      const block = link.closest(".elementor-element.elementor-widget-button");
+      if (block) block.remove();
+    }
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".menu-item a").forEach(link => {
+    const href = link.getAttribute("href")?.trim();
+    if (!href || href === "menu_link" || !href.startsWith("http")) {
+      const li = link.closest(".menu-item");
+      if (li) li.remove();
+    }
+  });
 });
 </script>
 </body></html>
